@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vaelis</title>  <style>
+  <title>Vaelis.xyz</title>  
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/CK9Hnbn3/file-0000000088b871f5b587bd77d7845430.png">  
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -23,18 +26,6 @@
       z-index: -1;
     }
 
-    nav {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-    }
-
-    nav img {
-      width: 65px;
-      filter: drop-shadow(0 0 10px #8b5cf6);
-      opacity: 0.9;
-    }
-
     .hero {
       height: 100vh;
       display: flex;
@@ -51,10 +42,11 @@
       letter-spacing: 2px;
       text-shadow: 0 0 15px #8b5cf6;
       transition: 0.2s;
+      color: #8b5cf6; /* COR FIXA ROXA */
     }
 
     h1:hover {
-      color: #8b5cf6;
+      color: #fff; /* muda pra branco ao hover */
     }
 
     p {
@@ -68,11 +60,12 @@
       margin-top: 30px;
       padding: 12px 28px;
       border: 1px solid #8b5cf6;
-      color: #8b5cf6;
+      color: #8b5cf6 !important; /* força cor roxa */
       text-decoration: none;
       border-radius: 6px;
       font-size: 14px;
       transition: 0.3s;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -116,15 +109,18 @@
       border-top: 1px solid #1f1f2a;
       margin-top: 50px;
     }
-  </style></head><body><canvas id="canvas"></canvas>
+  </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
 
-<nav>
-  <img src="https://i.postimg.cc/CK9Hnbn3/file-0000000088b871f5b587bd77d7845430.png">
-</nav><div class="hero">
+<div class="hero">
   <h1 id="vaelis">Vaelis</h1>
   <p>developer · web · systems</p>
-  <a href="#about" class="btn">Explore</a>
-</div><section id="about">
+  <button class="btn" onclick="scrollToAbout()">Explore</button>
+</div>
+
+<section id="about">
   <h2>About</h2>
   <p>
     I am a developer focused on building clean, efficient, and modern web experiences.
@@ -133,7 +129,9 @@
     I turn challenges into motivation and keep evolving.
     My goal is to create meaningful projects and grow as a developer.
   </p>
-</section><section>
+</section>
+
+<section>
   <h2>Skills</h2>
   <div class="skills">
     <span>Python</span>
@@ -143,9 +141,20 @@
     <span>Ruby</span>
     <span>Assembly</span>
   </div>
-</section><footer>
+</section>
+
+<footer>
   © 2026 Vaelis. All rights reserved.
-</footer><script>
+</footer>
+
+<script>
+// Scroll sem # na URL
+function scrollToAbout() {
+  document.getElementById("about").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
 const name = document.getElementById("vaelis");
 let isToggled = false;
 
@@ -153,20 +162,23 @@ let isToggled = false;
 name.addEventListener("mouseenter", () => {
   if (window.innerWidth > 768) {
     name.innerText = "Vaelis.xyz";
+    name.style.color = "#8b5cf6"; // mantém roxo
   }
 });
 
 name.addEventListener("mouseleave", () => {
   if (window.innerWidth > 768) {
     name.innerText = "Vaelis";
+    name.style.color = "#8b5cf6"; // mantém roxo
   }
 });
 
-// Mobile fix (sem bug)
+// Mobile toggle
 name.addEventListener("touchstart", (e) => {
   e.preventDefault();
   isToggled = !isToggled;
   name.innerText = isToggled ? "Vaelis.xyz" : "Vaelis";
+  name.style.color = "#8b5cf6"; // mantém roxo
 });
 
 // PC click fallback
@@ -174,8 +186,10 @@ name.addEventListener("click", () => {
   if (window.innerWidth <= 768) return;
   isToggled = !isToggled;
   name.innerText = isToggled ? "Vaelis.xyz" : "Vaelis";
+  name.style.color = "#8b5cf6"; // mantém roxo
 });
-</script><script>
+
+// Background animation
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -218,5 +232,6 @@ function draw() {
 }
 
 draw();
-</script></body>
+</script>
+</body>
 </html>
