@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaelis</title>  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #0a0a0f;
+      color: #e5e5e5;
+      overflow-x: hidden;
+    }
+
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+    }
+
+    nav img {
+      width: 65px;
+      filter: drop-shadow(0 0 10px #8b5cf6);
+      opacity: 0.9;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 64px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px #8b5cf6;
+      transition: 0.2s;
+    }
+
+    h1:hover {
+      color: #8b5cf6;
+    }
+
+    p {
+      margin-top: 10px;
+      color: #9ca3af;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 12px 28px;
+      border: 1px solid #8b5cf6;
+      color: #8b5cf6;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #8b5cf6;
+      color: #fff;
+      box-shadow: 0 0 12px #8b5cf6;
+    }
+
+    section {
+      padding: 100px 20px;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #8b5cf6;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    section p {
+      line-height: 1.6;
+      font-size: 14px;
+      color: #cfcfcf;
+    }
+
+    .skills span {
+      display: inline-block;
+      margin: 6px;
+      padding: 6px 10px;
+      border: 1px solid #8b5cf6;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #1f1f2a;
+      margin-top: 50px;
+    }
+  </style></head><body><canvas id="canvas"></canvas>
+
+<nav>
+  <img src="https://i.postimg.cc/CK9Hnbn3/file-0000000088b871f5b587bd77d7845430.png">
+</nav><div class="hero">
+  <h1 id="vaelis">Vaelis</h1>
+  <p>developer · web · systems</p>
+  <a href="#about" class="btn">Explore</a>
+</div><section id="about">
+  <h2>About</h2>
+  <p>
+    I am a developer focused on building clean, efficient, and modern web experiences.
+    I spend my time studying programming, reading, and improving my skills daily.
+    I practice karate, which helps me stay disciplined and focused.
+    I turn challenges into motivation and keep evolving.
+    My goal is to create meaningful projects and grow as a developer.
+  </p>
+</section><section>
+  <h2>Skills</h2>
+  <div class="skills">
+    <span>Python</span>
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
+    <span>Ruby</span>
+    <span>Assembly</span>
+  </div>
+</section><footer>
+  © 2026 Vaelis. All rights reserved.
+</footer><script>
+const name = document.getElementById("vaelis");
+let isToggled = false;
+
+// Desktop hover
+name.addEventListener("mouseenter", () => {
+  if (window.innerWidth > 768) {
+    name.innerText = "Vaelis.xyz";
+  }
+});
+
+name.addEventListener("mouseleave", () => {
+  if (window.innerWidth > 768) {
+    name.innerText = "Vaelis";
+  }
+});
+
+// Mobile fix (sem bug)
+name.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  isToggled = !isToggled;
+  name.innerText = isToggled ? "Vaelis.xyz" : "Vaelis";
+});
+
+// PC click fallback
+name.addEventListener("click", () => {
+  if (window.innerWidth <= 768) return;
+  isToggled = !isToggled;
+  name.innerText = isToggled ? "Vaelis.xyz" : "Vaelis";
+});
+</script><script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let balls = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+for (let i = 0; i < 50; i++) {
+  balls.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 3 + 1,
+    speed: Math.random() * 1 + 0.5
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  balls.forEach(ball => {
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2);
+    ctx.fillStyle = "#8b5cf6";
+    ctx.fill();
+
+    ball.y += ball.speed;
+
+    if (ball.y > canvas.height) {
+      ball.y = 0;
+      ball.x = Math.random() * canvas.width;
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script></body>
+</html>
