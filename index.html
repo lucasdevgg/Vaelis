@@ -1,193 +1,289 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaelis.xyz</title>
-<link rel="icon" href="https://i.postimg.cc/CK9Hnbn3/file-0000000088b871f5b587bd77d7845430.png">
+<title>Yokko</title>
 
 <style>
-:root{
-  --bg:#05060f;
-  --accent:#22c55e;
-  --accent2:#3b82f6;
-  --text:#e5e7eb;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
-
-canvas{position:fixed;top:0;left:0;z-index:-3}
-
-.cursor{
- width:18px;height:18px;border:2px solid var(--accent);
- border-radius:50%;position:fixed;pointer-events:none;
- transform:translate(-50%,-50%);z-index:9999;
+body {
+  background: radial-gradient(circle at top, #1a0f1f, #0a0a0f, #140a1a);
+  color: #ffe4f3;
+  overflow-x: hidden;
 }
 
-.glow{
- position:fixed;width:600px;height:600px;
- background:radial-gradient(circle,var(--accent2),transparent 70%);
- filter:blur(120px);opacity:.15;z-index:-1;
+/* Glow mouse */
+body::before {
+  content: "";
+  position: fixed;
+  top: var(--y);
+  left: var(--x);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,182,193,0.2), transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
-.container{max-width:1100px;margin:auto;padding:40px}
-
-.hero{
- height:100vh;
- display:flex;
- flex-direction:column;
- justify-content:center;
+/* Background */
+#canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
-h1{
- font-size:100px;
- font-weight:900;
- background:linear-gradient(90deg,var(--accent),var(--accent2));
- -webkit-background-clip:text;
- -webkit-text-fill-color:transparent;
+/* Logo */
+nav {
+  position: fixed;
+  top: 20px;
+  left: 20px;
 }
 
-.sub{margin-top:10px;color:#888}
-
-.btns{margin-top:40px;display:flex;gap:15px}
-
-.btn{
- padding:12px 24px;border-radius:12px;border:none;
- cursor:pointer;transition:.2s;
+nav img {
+  width: 60px;
+  filter: drop-shadow(0 0 15px #ff8bdc);
 }
 
-.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000}
-.primary:hover{transform:scale(1.08)}
-
-.ghost{background:transparent;border:1px solid #333;color:#fff}
-.ghost:hover{border-color:var(--accent)}
-
-.section{margin-top:120px;opacity:0;transform:translateY(60px);transition:.6s}
-.section.visible{opacity:1;transform:translateY(0)}
-
-.card{
- background:rgba(255,255,255,0.03);
- backdrop-filter:blur(20px);
- border:1px solid rgba(255,255,255,0.08);
- padding:25px;border-radius:16px;margin-bottom:20px;
- transition:.25s;
+/* HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  animation: float 4s ease-in-out infinite;
 }
 
-.card:hover{
- transform:translateY(-6px);
+/* FOTO */
+.avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  object-fit: cover;
+  border: 2px solid #ff8bdc;
+  box-shadow: 
+    0 0 20px #ff8bdc,
+    0 0 40px #c084fc,
+    0 0 60px #f9a8d4;
+  transition: 0.4s;
 }
 
-.projects .proj{
- padding:16px;border-radius:12px;
- border:1px solid rgba(255,255,255,0.08);
- margin-bottom:12px;transition:.25s;
+.avatar:hover {
+  transform: scale(1.08);
+  box-shadow: 
+    0 0 30px #ff8bdc,
+    0 0 60px #c084fc,
+    0 0 90px #f9a8d4;
 }
 
-.projects .proj:hover{
- transform:translateX(10px);
- border-color:var(--accent);
+/* NOME */
+h1 {
+  font-size: 52px;
+  cursor: pointer;
+  animation: glow 2s infinite alternate;
 }
 
-footer{margin-top:120px;text-align:center;color:#555}
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #ff8bdc;
+  }
+  to {
+    text-shadow: 0 0 25px #ff8bdc, 0 0 40px #c084fc;
+  }
+}
 
+/* SUB */
+p {
+  margin-top: 8px;
+  color: #f3cfff;
+  font-size: 13px;
+}
+
+/* BOTÃO */
+.btn {
+  margin-top: 25px;
+  padding: 10px 25px;
+  border: 1px solid #ff8bdc;
+  color: #ff8bdc;
+  border-radius: 30px;
+  font-size: 13px;
+  transition: 0.3s;
+  backdrop-filter: blur(5px);
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: linear-gradient(45deg, #ff8bdc, #c084fc);
+  color: white;
+  box-shadow: 0 0 20px #ff8bdc;
+}
+
+/* SECTION */
+section {
+  padding: 100px 20px;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+h2 {
+  color: #ff8bdc;
+  margin-bottom: 20px;
+}
+
+section p {
+  color: #e5ccff;
+}
+
+/* SKILLS */
+.skills span {
+  display: inline-block;
+  margin: 6px;
+  padding: 6px 12px;
+  border: 1px solid #ff8bdc;
+  border-radius: 20px;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.skills span:hover {
+  background: #ff8bdc;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  font-size: 12px;
+  color: #777;
+  border-top: 1px solid #1f1f2a;
+}
+
+/* FLOAT */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
 </style>
+
 </head>
 
 <body>
-<canvas id="bg"></canvas>
-<div class="cursor" id="cursor"></div>
-<div class="glow" id="glow"></div>
 
-<div class="container">
+<canvas id="canvas"></canvas>
+
+<nav>
+  <img src="https://i.postimg.cc/CK9Hnbn3/file-0000000088b871f5b587bd77d7845430.png">
+</nav>
 
 <div class="hero">
-  <h1 id="vaelis">Vaelis</h1>
-  <div class="sub">developer • systems • web</div>
 
-  <div class="btns">
-    <button class="btn primary" onclick="scrollToSection()">Explore</button>
-    <button class="btn ghost">Contact</button>
-  </div>
-</div>
+<img class="avatar" src="https://i.postimg.cc/cJR0yKk9/channels4-profile.jpg">
 
-<div class="section" id="about">
-  <div class="card">Focused on building clean and efficient systems.</div>
-  <div class="card">Always improving and evolving skills daily.</div>
-</div>
+<h1 id="yokko">Yokko</h1>
+<p>soft dev ✦ dreamy ✦ aesthetic ✦ cat lover 🐾</p>
 
-<div class="section projects">
-  <div class="proj">System Engine</div>
-  <div class="proj">Automation Toolkit</div>
-  <div class="proj">Web Platform</div>
-</div>
-
-<footer>© 2026 Vaelis</footer>
+<a href="#about" class="btn">Explore ✨</a>
 
 </div>
+
+<section id="about">
+<h2>About</h2>
+<p>
+I build aesthetic websites, bots and systems.  
+I love creating soft, dreamy experiences and mixing tech with art 💖
+</p>
+</section>
+
+<section>
+<h2>Skills</h2>
+<div class="skills">
+<span>Python</span>
+<span>HTML</span>
+<span>CSS</span>
+<span>JavaScript</span>
+<span>Ruby</span>
+<span>Assembly</span>
+</div>
+</section>
+
+<footer>
+© 2026 Yokko ✦
+</footer>
 
 <script>
-// nome toggle
-const n=document.getElementById("vaelis");
-let t=false;
-n.addEventListener("mouseenter",()=>{if(innerWidth>768)n.innerText="Vaelis.xyz"});
-n.addEventListener("mouseleave",()=>{if(innerWidth>768)n.innerText="Vaelis"});
-n.addEventListener("click",()=>{t=!t;n.innerText=t?"Vaelis.xyz":"Vaelis"});
-
-// scroll botão
-function scrollToSection(){
- document.getElementById("about").scrollIntoView({behavior:"smooth"});
-}
-
-// cursor + glow
-const cursor=document.getElementById("cursor");
-const glow=document.getElementById("glow");
-document.addEventListener("mousemove",e=>{
- cursor.style.top=e.clientY+"px";
- cursor.style.left=e.clientX+"px";
- glow.style.top=(e.clientY-300)+"px";
- glow.style.left=(e.clientX-300)+"px";
+// mouse glow
+document.addEventListener("mousemove", e => {
+  document.body.style.setProperty('--x', e.clientX + 'px');
+  document.body.style.setProperty('--y', e.clientY + 'px');
 });
 
-// reveal
-const secs=document.querySelectorAll(".section");
-function reveal(){
- secs.forEach(s=>{
-  if(s.getBoundingClientRect().top<window.innerHeight-80){
-    s.classList.add("visible");
-  }
- });
-}
-window.addEventListener("scroll",reveal);
-reveal();
+// nome toggle
+const name = document.getElementById("yokko");
+let isToggled = false;
 
+name.addEventListener("click", () => {
+  isToggled = !isToggled;
+  name.innerText = isToggled ? "Yokko.xyz" : "Yokko";
+});
+</script>
+
+<script>
 // particles
-const canvas=document.getElementById("bg");
-const ctx=canvas.getContext("2d");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-function resize(){
- canvas.width=innerWidth;
- canvas.height=innerHeight;
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
 resize();
-window.addEventListener("resize",resize);
+window.addEventListener("resize", resize);
 
-let p=[];
-for(let i=0;i<80;i++){
- p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5});
+for (let i = 0; i < 70; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2 + 1,
+    speed: Math.random() * 0.5 + 0.2
+  });
 }
 
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- p.forEach(a=>{
-  ctx.fillStyle="#22c55e";
-  ctx.fillRect(a.x,a.y,2,2);
-  a.x+=a.vx;a.y+=a.vy;
-  if(a.x<0||a.x>canvas.width)a.vx*=-1;
-  if(a.y<0||a.y>canvas.height)a.vy*=-1;
- });
- requestAnimationFrame(draw);
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255, 182, 193, 0.8)";
+    ctx.fill();
+
+    p.y += p.speed;
+
+    if (p.y > canvas.height) {
+      p.y = 0;
+      p.x = Math.random() * canvas.width;
+    }
+  });
+
+  requestAnimationFrame(draw);
 }
+
 draw();
 </script>
 
