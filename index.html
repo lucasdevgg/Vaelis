@@ -1,290 +1,652 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yokko</title>
+    <meta property="og:title" content="Lunar">
+    <meta property="og:description" content="Hello, i'm lunar.">
+    <meta property="og:image" content="https://i.postimg.cc/1R225yPq/ba2a402fd48ff85b3c804e3e6700ded8.jpg">
+    <meta property="og:url" content="https://vaelis.xyz">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-  background: radial-gradient(circle at top, #1a0f1f, #0a0a0f, #140a1a);
-  color: #ffe4f3;
-  overflow-x: hidden;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* Glow mouse */
-body::before {
-  content: "";
-  position: fixed;
-  top: var(--y);
-  left: var(--x);
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255,182,193,0.2), transparent 70%);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-}
+        body {
+            background: #07070f;
+            color: white;
+            font-family: 'Outfit', 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-/* Background */
-#canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
+        /* ── STARS BG ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,.35) 0%, transparent 100%),
+                radial-gradient(1px 1px at 55% 25%, rgba(255,255,255,.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 75% 80%, rgba(255,255,255,.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,.5) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 20% 85%, rgba(255,255,255,.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 42% 10%, rgba(255,255,255,.35) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 80% 20%, rgba(255,255,255,.25) 0%, transparent 100%),
+                radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,.4) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-/* Logo */
-nav {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-}
+        /* ── GLOW ORBS ── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 0%, rgba(138,43,226,.12) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 350px at 80% 100%, rgba(214,140,255,.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-nav img {
-  width: 60px;
-  filter: drop-shadow(0 0 15px #ff8bdc);
-}
+        /* ── PAGES ── */
+        .page {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
 
-/* HERO */
-.hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  animation: float 4s ease-in-out infinite;
-}
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* FOTO */
-.avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  margin-bottom: 20px;
-  object-fit: cover;
-  border: 2px solid #ff8bdc;
-  box-shadow: 
-    0 0 20px #ff8bdc,
-    0 0 40px #c084fc,
-    0 0 60px #f9a8d4;
-  transition: 0.4s;
-}
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-flex;
+            gap: 4px;
+            padding: 6px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.09);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+        }
 
-.avatar:hover {
-  transform: scale(1.08);
-  box-shadow: 
-    0 0 30px #ff8bdc,
-    0 0 60px #c084fc,
-    0 0 90px #f9a8d4;
-}
+        .navbar a {
+            position: relative;
+            color: #9090a8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 999px;
+            transition: color .25s;
+            cursor: pointer;
+        }
 
-/* NOME */
-h1 {
-  font-size: 52px;
-  cursor: pointer;
-  animation: glow 2s infinite alternate;
-}
+        .navbar a.active {
+            color: #fff;
+            background: rgba(255,255,255,.08);
+        }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px #ff8bdc;
-  }
-  to {
-    text-shadow: 0 0 25px #ff8bdc, 0 0 40px #c084fc;
-  }
-}
+        .navbar a:not(.active):hover {
+            color: #d68cff;
+        }
 
-/* SUB */
-p {
-  margin-top: 8px;
-  color: #f3cfff;
-  font-size: 13px;
-}
+        /* ── LOGO ── */
+        .logo {
+            position: fixed;
+            top: 30px;
+            left: 36px;
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, #d68cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 100;
+        }
 
-/* BOTÃO */
-.btn {
-  margin-top: 25px;
-  padding: 10px 25px;
-  border: 1px solid #ff8bdc;
-  color: #ff8bdc;
-  border-radius: 30px;
-  font-size: 13px;
-  transition: 0.3s;
-  backdrop-filter: blur(5px);
-  text-decoration: none;
-}
+        /* ═══════════════════════════
+           HOME PAGE
+        ═══════════════════════════ */
+        #home {
+            text-align: center;
+            padding: 120px 20px 60px;
+            gap: 0;
+        }
 
-.btn:hover {
-  background: linear-gradient(45deg, #ff8bdc, #c084fc);
-  color: white;
-  box-shadow: 0 0 20px #ff8bdc;
-}
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #d68cff;
+            background: rgba(214,140,255,.08);
+            border: 1px solid rgba(214,140,255,.2);
+            border-radius: 999px;
+            padding: 6px 16px;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeUp .6s .1s forwards;
+        }
 
-/* SECTION */
-section {
-  padding: 100px 20px;
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-}
+        .hero-eyebrow::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #23a55a;
+            box-shadow: 0 0 8px #23a55a;
+            animation: pulse 2s infinite;
+        }
 
-h2 {
-  color: #ff8bdc;
-  margin-bottom: 20px;
-}
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
 
-section p {
-  color: #e5ccff;
-}
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -.02em;
+            opacity: 0;
+            animation: fadeUp .6s .2s forwards;
+        }
 
-/* SKILLS */
-.skills span {
-  display: inline-block;
-  margin: 6px;
-  padding: 6px 12px;
-  border: 1px solid #ff8bdc;
-  border-radius: 20px;
-  font-size: 12px;
-  transition: 0.3s;
-}
+        .hero h1 .name {
+            background: linear-gradient(135deg, #d68cff 0%, #a855f7 50%, #d68cff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite, fadeUp .6s .2s forwards;
+        }
 
-.skills span:hover {
-  background: #ff8bdc;
-  color: white;
-  transform: scale(1.1);
-}
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 30px;
-  font-size: 12px;
-  color: #777;
-  border-top: 1px solid #1f1f2a;
-}
+        .description {
+            margin: 24px auto 0;
+            max-width: 560px;
+            color: #8888a2;
+            line-height: 1.8;
+            font-size: 17px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeUp .6s .3s forwards;
+        }
 
-/* FLOAT */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-</style>
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 36px;
+            opacity: 0;
+            animation: fadeUp .6s .4s forwards;
+        }
 
+        .btn-primary {
+            padding: 12px 28px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: .25s;
+            font-family: inherit;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(168,85,247,.4);
+        }
+
+        .btn-ghost {
+            padding: 12px 28px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.04);
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,.08);
+            cursor: pointer;
+            text-decoration: none;
+            transition: .25s;
+            font-family: inherit;
+        }
+
+        .btn-ghost:hover {
+            color: white;
+            border-color: rgba(255,255,255,.2);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══════════════════════════
+           ABOUT PAGE
+        ═══════════════════════════ */
+        #about {
+            padding: 100px 20px 60px;
+            gap: 48px;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .about-card {
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 20px;
+            padding: 28px;
+            transition: .3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(214,140,255,.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: .3s;
+        }
+
+        .about-card:hover::before { opacity: 1; }
+        .about-card:hover {
+            border-color: rgba(214,140,255,.2);
+            transform: translateY(-3px);
+        }
+
+        .about-card.wide {
+            grid-column: span 2;
+        }
+
+        .card-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #e8e8f0;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #7070888;
+            line-height: 1.7;
+            color: #80809a;
+        }
+
+        .skills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .skill-tag {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(214,140,255,.1);
+            color: #c084fc;
+            border: 1px solid rgba(214,140,255,.2);
+        }
+
+        .about-heading {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            text-align: center;
+        }
+
+        .about-heading span { color: #d68cff; }
+
+        /* ═══════════════════════════
+           CONTACT PAGE
+        ═══════════════════════════ */
+        #contact {
+            padding: 100px 20px 60px;
+            gap: 32px;
+            flex-direction: column;
+        }
+
+        .contact-heading {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            text-align: center;
+        }
+
+        .contact-heading span { color: #d68cff; }
+
+        /* DISCORD CARD */
+        .contact-card {
+            width: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #1e1f22;
+            border: 1px solid rgba(255,255,255,.1);
+            transition: .3s;
+            position: relative;
+            box-shadow: 0 0 0 rgba(214,140,255,0);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(214,140,255,.18);
+        }
+
+        /* BANNER VIA IMAGEM */
+        .banner {
+            height: 100px;
+            background-image: url('https://i.postimg.cc/FKJbsXxq/upscalemedia-transformed.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .banner:hover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(88,101,242,.15);
+            transition: .2s;
+        }
+
+        .banner-discord-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            background: #1e1f22;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* PROFILE */
+        .profile {
+            padding: 0 16px 20px;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            display: inline-block;
+            margin-top: -40px;
+        }
+
+        .profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #1e1f22;
+            display: block;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 16px;
+            height: 16px;
+            background: #23a55a;
+            border-radius: 50%;
+            border: 3px solid #1e1f22;
+            box-shadow: 0 0 8px rgba(35,165,90,.6);
+        }
+
+        .profile h3 {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #f2f3f5;
+            text-align: left;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .profile .handle {
+            color: #b5bac1;
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        .profile-divider {
+            height: 1px;
+            background: rgba(255,255,255,.06);
+            margin: 12px 0;
+        }
+
+        .about-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #b5bac1;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            margin-bottom: 6px;
+            text-align: left;
+        }
+
+        .about-text {
+            font-size: 13px;
+            color: #dbdee1;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        /* CONTACT BUTTONS */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            transition: .25s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .contact-links a:hover {
+            border-color: rgba(214,140,255,.4);
+            background: rgba(214,140,255,.07);
+            box-shadow: 0 0 18px rgba(214,140,255,.2);
+            transform: translateY(-2px);
+        }
+
+        /* FOOTER */
+        footer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #444;
+            font-size: 12px;
+            z-index: 100;
+            font-family: 'Outfit', sans-serif;
+        }
+    </style>
 </head>
-
 <body>
 
-<canvas id="canvas"></canvas>
+<div class="logo">lunar.lol</div>
 
-<nav>
-  <img src="https://i.postimg.cc/CK9Hnbn3/file-0000000088b871f5b587bd77d7845430.png">
+<nav class="navbar">
+    <a href="#" class="active" onclick="showPage('home', this)">home</a>
+    <a href="#" onclick="showPage('about', this)">about</a>
+    <a href="#" onclick="showPage('contact', this)">contact</a>
 </nav>
 
-<div class="hero">
-
-<img class="avatar" src="https://i.postimg.cc/cJR0yKk9/channels4-profile.jpg">
-
-<h1 id="yokko">Yokko</h1>
-<p>soft dev ✦ dreamy ✦ aesthetic ✦ cat lover 🐾</p>
-
-<a href="#about" class="btn">Explore ✨</a>
-
+<!-- ══════════ HOME ══════════ -->
+<div id="home" class="page active">
+    <div class="hero">
+        <div class="hero-eyebrow">available for projects</div>
+        <h1>Hello, i'm <span class="name">Lunar</span>.</h1>
+        <p class="description">
+            Self-taught software developer with experience in web
+            development, automation and custom projects.
+            I enjoy building clean interfaces and learning new
+            technologies every day.
+        </p>
+        <div class="hero-cta">
+            <a class="btn-primary" href="#" onclick="showPage('contact', document.querySelectorAll('.navbar a')[2])">contact me</a>
+            <a class="btn-ghost" href="#" onclick="showPage('about', document.querySelectorAll('.navbar a')[1])">learn more</a>
+        </div>
+    </div>
 </div>
 
-<section id="about">
-<h2>About</h2>
-<p>
-I build aesthetic websites, bots and systems.  
-I love creating soft, dreamy experiences and mixing tech with art 💖
-</p>
-</section>
+<!-- ══════════ ABOUT ══════════ -->
+<div id="about" class="page">
+    <p class="about-heading">About <span>me</span></p>
+    <div class="about-grid">
+        <div class="about-card wide">
+            <div class="card-icon">👋</div>
+            <div class="card-title">Who I am</div>
+            <div class="card-text">
+                I’m a self-taught software developer with hands-on experience across various programming languages and tech stacks.
 
-<section>
-<h2>Skills</h2>
-<div class="skills">
-<span>Python</span>
-<span>HTML</span>
-<span>CSS</span>
-<span>JavaScript</span>
-<span>Ruby</span>
-<span>Assembly</span>
+Most of my knowledge comes from building personal projects, testing ideas, and learning through trial and error, which made me quick at picking up new tools and adapting to different environments.
+
+I care a lot about writing clean, reliable code and I’m always improving by building more things and learning from what works and what fails — also, I’m a girl developer.
+            </div>
+        </div>
+        <div class="about-card">
+            <div class="card-icon">⚡</div>
+            <div class="card-title">What I do</div>
+            <div class="card-text">Web development, automation scripts, bots and custom tools built from scratch.</div>
+        </div>
+        <div class="about-card">
+            <div class="card-icon">🛠️</div>
+            <div class="card-title">Stack</div>
+            <div class="skills-row">
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">Luau</span>
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">CSS</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Node.js</span>
+            </div>
+        </div>
+    </div>
 </div>
-</section>
 
-<footer>
-© 2026 Yokko ✦
-</footer>
+<!-- ══════════ CONTACT ══════════ -->
+<div id="contact" class="page">
+    <p class="contact-heading">Contact <span>me</span></p>
+
+    <div class="contact-card">
+        <a href="https://discord.com/users/1460435821348786371" target="_blank" rel="noopener" style="display:block;">
+        <div class="banner">
+            <div class="banner-discord-icon">
+                <svg width="18" height="14" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.545 1.005A13.18 13.18 0 0 0 10.27 0a.077.077 0 0 0-.082.039c-.14.249-.296.574-.404.828a12.187 12.187 0 0 0-3.567 0 8.352 8.352 0 0 0-.41-.828.08.08 0 0 0-.082-.04A13.145 13.145 0 0 0 2.45 1.005a.073.073 0 0 0-.033.028C.355 4.226-.213 7.358.066 10.45a.082.082 0 0 0 .031.056 13.243 13.243 0 0 0 3.986 2.02.08.08 0 0 0 .087-.028c.307-.42.581-.863.815-1.33a.075.075 0 0 0-.041-.105 8.72 8.72 0 0 1-1.248-.595.077.077 0 0 1-.008-.127c.084-.063.168-.129.248-.195a.074.074 0 0 1 .077-.01c2.619 1.196 5.454 1.196 8.041 0a.074.074 0 0 1 .078.009c.08.066.164.133.249.196a.077.077 0 0 1-.006.127c-.399.233-.813.43-1.249.594a.075.075 0 0 0-.04.106c.238.466.512.909.814 1.33a.08.08 0 0 0 .088.028 13.208 13.208 0 0 0 3.992-2.02.077.077 0 0 0 .032-.055c.332-3.452-.557-6.557-2.357-9.418a.061.061 0 0 0-.033-.028Z" fill="#5865F2"/>
+                </svg>
+            </div>
+        </div>
+        </a>
+
+        <div class="profile">
+            <div class="avatar-wrap">
+                <img src="https://i.postimg.cc/1R225yPq/ba2a402fd48ff85b3c804e3e6700ded8.jpg" alt="Lunar">
+                <div class="status-dot"></div>
+            </div>
+            <h3>Lunar</h3>
+            <p class="handle">@8xx33</p>
+            <div class="profile-divider"></div>
+            <p class="about-label">about me</p>
+            <p class="about-text">self-taught dev • web & automation • always building something new. and click on banner to contact me! :D</p>
+        </div>
+    </div>
+
+    <div class="contact-links">
+        <a href="https://discord.com">
+            <svg width="16" height="13" viewBox="0 0 16 12" fill="currentColor">
+                <path d="M13.545 1.005A13.18 13.18 0 0 0 10.27 0a.077.077 0 0 0-.082.039c-.14.249-.296.574-.404.828a12.187 12.187 0 0 0-3.567 0 8.352 8.352 0 0 0-.41-.828.08.08 0 0 0-.082-.04A13.145 13.145 0 0 0 2.45 1.005a.073.073 0 0 0-.033.028C.355 4.226-.213 7.358.066 10.45a.082.082 0 0 0 .031.056 13.243 13.243 0 0 0 3.986 2.02.08.08 0 0 0 .087-.028c.307-.42.581-.863.815-1.33a.075.075 0 0 0-.041-.105 8.72 8.72 0 0 1-1.248-.595.077.077 0 0 1-.008-.127c.084-.063.168-.129.248-.195a.074.074 0 0 1 .077-.01c2.619 1.196 5.454 1.196 8.041 0a.074.074 0 0 1 .078.009c.08.066.164.133.249.196a.077.077 0 0 1-.006.127c-.399.233-.813.43-1.249.594a.075.075 0 0 0-.04.106c.238.466.512.909.814 1.33a.08.08 0 0 0 .088.028 13.208 13.208 0 0 0 3.992-2.02.077.077 0 0 0 .032-.055c.332-3.452-.557-6.557-2.357-9.418a.061.061 0 0 0-.033-.028Z"/>
+            </svg>
+            Discord
+        </a>
+    </div>
+</div>
+
+<footer>made with ♥ by Lunar</footer>
 
 <script>
-// mouse glow
-document.addEventListener("mousemove", e => {
-  document.body.style.setProperty('--x', e.clientX + 'px');
-  document.body.style.setProperty('--y', e.clientY + 'px');
-});
+    function showPage(id, el) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if (el) el.classList.add('active');
 
-// nome toggle
-const name = document.getElementById("yokko");
-let isToggled = false;
-
-name.addEventListener("click", () => {
-  isToggled = !isToggled;
-  name.innerText = isToggled ? "Yokko.xyz" : "Yokko";
-});
-</script>
-
-<script>
-// particles
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-let particles = [];
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-for (let i = 0; i < 70; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 2 + 1,
-    speed: Math.random() * 0.5 + 0.2
-  });
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 182, 193, 0.8)";
-    ctx.fill();
-
-    p.y += p.speed;
-
-    if (p.y > canvas.height) {
-      p.y = 0;
-      p.x = Math.random() * canvas.width;
+        // re-trigger hero animations on home
+        if (id === 'home') {
+            const hero = document.querySelector('.hero');
+            hero.style.display = 'none';
+            requestAnimationFrame(() => { hero.style.display = ''; });
+        }
     }
-  });
-
-  requestAnimationFrame(draw);
-}
-
-draw();
 </script>
 
 </body>
