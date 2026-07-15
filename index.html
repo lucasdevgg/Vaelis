@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta property="og:title" content="Yarac">
-    <meta property="og:description" content="Hello, i'm Yarac.">
+    <meta property="og:title" content="Choco">
+    <meta property="og:description" content="Hello, Choco.">
     <meta property="og:image" content="https://i.postimg.cc/vHQsCJ1P/c61b68cfba84246f45666cdedf57d381.jpg">
     <meta property="og:url" content="https://vaelis.xyz">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yarac</title>
+    <title>Choco or swii3d9</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -25,43 +26,19 @@
         }
 
         body {
-            background: #07070f;
-            color: white;
-            font-family: 'Outfit', 'Segoe UI', sans-serif;
+            background: #0d0d0e;
+            color: #e6e4dd;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        /* ── STARS BG ── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
             background-image:
-                radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.5) 0%, transparent 100%),
-                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,.35) 0%, transparent 100%),
-                radial-gradient(1px 1px at 55% 25%, rgba(255,255,255,.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 75% 80%, rgba(255,255,255,.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,.5) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 20% 85%, rgba(255,255,255,.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 42% 10%, rgba(255,255,255,.35) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 80% 20%, rgba(255,255,255,.25) 0%, transparent 100%),
-                radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,.4) 0%, transparent 100%);
-            pointer-events: none;
-            z-index: 0;
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+            background-size: 42px 42px;
         }
 
-        /* ── GLOW ORBS ── */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 600px 400px at 20% 0%, rgba(138,43,226,.12) 0%, transparent 70%),
-                radial-gradient(ellipse 500px 350px at 80% 100%, rgba(214,140,255,.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+        code, .mono {
+            font-family: 'JetBrains Mono', monospace;
         }
 
         /* ── PAGES ── */
@@ -82,289 +59,255 @@
         /* ── NAVBAR ── */
         .navbar {
             position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: inline-flex;
-            gap: 4px;
-            padding: 6px;
-            border-radius: 999px;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(255,255,255,.09);
-            backdrop-filter: blur(20px);
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            padding: 18px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            background: rgba(13,13,14,.7);
+            backdrop-filter: blur(10px);
             z-index: 100;
         }
 
         .navbar a {
-            position: relative;
-            color: #9090a8;
+            color: #77766f;
             text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             font-weight: 500;
-            padding: 8px 20px;
-            border-radius: 999px;
-            transition: color .25s;
+            padding: 4px 2px;
+            border-bottom: 1px solid transparent;
+            transition: color .2s, border-color .2s;
             cursor: pointer;
         }
 
+        .navbar a::before {
+            content: '· ';
+            opacity: 0;
+            color: #e0a458;
+        }
+
         .navbar a.active {
-            color: #fff;
-            background: rgba(255,255,255,.08);
+            color: #e6e4dd;
+            border-color: #e0a458;
+        }
+
+        .navbar a.active::before {
+            opacity: 1;
         }
 
         .navbar a:not(.active):hover {
-            color: #d68cff;
+            color: #cfcdc4;
         }
 
         /* ── LOGO ── */
         .logo {
             position: fixed;
-            top: 30px;
-            left: 36px;
-            font-size: 18px;
+            top: 20px;
+            left: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
             font-weight: 700;
-            background: linear-gradient(90deg, #fff, #d68cff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            z-index: 100;
+            color: #e0a458;
+            z-index: 101;
         }
 
         /* ═══════════════════════════
            HOME PAGE
         ═══════════════════════════ */
         #home {
-            text-align: center;
-            padding: 120px 20px 60px;
+            text-align: left;
+            padding: 100px 24px 60px;
             gap: 0;
         }
 
+        .hero {
+            max-width: 560px;
+            width: 100%;
+        }
+
         .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: #d68cff;
-            background: rgba(214,140,255,.08);
-            border: 1px solid rgba(214,140,255,.2);
-            border-radius: 999px;
-            padding: 6px 16px;
-            margin-bottom: 28px;
-            opacity: 0;
-            animation: fadeUp .6s .1s forwards;
-        }
-
-        .hero-eyebrow::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #23a55a;
-            box-shadow: 0 0 8px #23a55a;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .4; }
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #6f6e67;
         }
 
         .hero h1 {
-            font-size: clamp(48px, 8vw, 80px);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -.02em;
-            opacity: 0;
-            animation: fadeUp .6s .2s forwards;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(34px, 6vw, 52px);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -.01em;
+            margin-top: 10px;
         }
 
         .hero h1 .name {
-            background: linear-gradient(135deg, #d68cff 0%, #a855f7 50%, #d68cff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite, fadeUp .6s .2s forwards;
+            color: #e0a458;
         }
 
-        @keyframes shimmer {
-            to { background-position: 200% center; }
+        .cursor {
+            display: inline-block;
+            width: 0.5em;
+            background: #e0a458;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
         .description {
-            margin: 24px auto 0;
-            max-width: 560px;
-            color: #8888a2;
-            line-height: 1.8;
-            font-size: 17px;
+            margin: 22px 0 0;
+            max-width: 480px;
+            color: #9c9a91;
+            line-height: 1.75;
+            font-size: 15px;
             font-weight: 400;
-            opacity: 0;
-            animation: fadeUp .6s .3s forwards;
         }
 
         .hero-cta {
             display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 36px;
-            opacity: 0;
-            animation: fadeUp .6s .4s forwards;
+            gap: 10px;
+            margin-top: 32px;
         }
 
         .btn-primary {
-            padding: 12px 28px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #a855f7, #7c3aed);
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 3px;
+            background: #e0a458;
+            color: #14130f;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
             border: none;
             cursor: pointer;
             text-decoration: none;
-            transition: .25s;
-            font-family: inherit;
+            transition: .15s;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(168,85,247,.4);
+            background: #f0b86c;
         }
 
         .btn-ghost {
-            padding: 12px 28px;
-            border-radius: 12px;
-            background: rgba(255,255,255,.04);
-            color: #aaa;
-            font-size: 14px;
-            font-weight: 600;
-            border: 1px solid rgba(255,255,255,.08);
+            padding: 10px 20px;
+            border-radius: 3px;
+            background: transparent;
+            color: #9c9a91;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,.14);
             cursor: pointer;
             text-decoration: none;
-            transition: .25s;
-            font-family: inherit;
+            transition: .15s;
         }
 
         .btn-ghost:hover {
-            color: white;
-            border-color: rgba(255,255,255,.2);
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+            color: #e6e4dd;
+            border-color: rgba(255,255,255,.3);
         }
 
         /* ═══════════════════════════
            ABOUT PAGE
         ═══════════════════════════ */
         #about {
-            padding: 100px 20px 60px;
-            gap: 48px;
+            padding: 110px 24px 60px;
+            gap: 40px;
             flex-direction: column;
-            max-width: 800px;
+            max-width: 620px;
             margin: 0 auto;
             width: 100%;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            width: 100%;
-        }
-
-        .about-card {
-            background: rgba(255,255,255,.03);
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 20px;
-            padding: 28px;
-            transition: .3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(214,140,255,.06) 0%, transparent 60%);
-            opacity: 0;
-            transition: .3s;
-        }
-
-        .about-card:hover::before { opacity: 1; }
-        .about-card:hover {
-            border-color: rgba(214,140,255,.2);
-            transform: translateY(-3px);
-        }
-
-        .about-card.wide {
-            grid-column: span 2;
-        }
-
-        .card-icon {
-            font-size: 28px;
-            margin-bottom: 12px;
-        }
-
-        .card-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #e8e8f0;
-            margin-bottom: 8px;
-        }
-
-        .card-text {
-            font-size: 14px;
-            color: #7070888;
-            line-height: 1.7;
-            color: #80809a;
-        }
-
-        .skills-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .skill-tag {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 999px;
-            background: rgba(214,140,255,.1);
-            color: #c084fc;
-            border: 1px solid rgba(214,140,255,.2);
+            align-items: flex-start;
         }
 
         .about-heading {
-            font-size: 36px;
-            font-weight: 800;
-            letter-spacing: -.02em;
-            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #6f6e67;
         }
 
-        .about-heading span { color: #d68cff; }
+        .about-heading .file {
+            color: #e0a458;
+        }
+
+        .bio-text {
+            font-size: 15px;
+            line-height: 1.85;
+            color: #c7c5bc;
+        }
+
+        .bio-text p + p {
+            margin-top: 14px;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #6f6e67;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .terminal {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 6px;
+            background: #101012;
+            overflow: hidden;
+        }
+
+        .terminal-bar {
+            display: flex;
+            gap: 6px;
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .terminal-bar span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.15);
+        }
+
+        .terminal-body {
+            padding: 16px 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.9;
+            color: #a9a79e;
+        }
+
+        .terminal-body .prompt {
+            color: #6f6e67;
+        }
+
+        .terminal-body .val {
+            color: #e0a458;
+        }
 
         /* ═══════════════════════════
            CONTACT PAGE
         ═══════════════════════════ */
         #contact {
-            padding: 100px 20px 60px;
-            gap: 32px;
+            padding: 100px 24px 60px;
+            gap: 28px;
             flex-direction: column;
         }
 
         .contact-heading {
-            font-size: 36px;
-            font-weight: 800;
-            letter-spacing: -.02em;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #6f6e67;
             text-align: center;
         }
 
-        .contact-heading span { color: #d68cff; }
+        .contact-heading .file { color: #e0a458; }
 
         /* DISCORD CARD */
         .contact-card {
@@ -373,17 +316,14 @@
             overflow: hidden;
             background: #1e1f22;
             border: 1px solid rgba(255,255,255,.1);
-            transition: .3s;
+            transition: .2s;
             position: relative;
-            box-shadow: 0 0 0 rgba(214,140,255,0);
         }
 
         .contact-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 50px rgba(214,140,255,.18);
+            transform: translateY(-3px);
         }
 
-        /* BANNER VIA IMAGEM */
         .banner {
             height: 100px;
             background-image: url('https://i.postimg.cc/vHQsCJ1P/c61b68cfba84246f45666cdedf57d381.jpg');
@@ -398,7 +338,6 @@
             position: absolute;
             inset: 0;
             background: rgba(88,101,242,.15);
-            transition: .2s;
         }
 
         .banner-discord-icon {
@@ -414,7 +353,6 @@
             justify-content: center;
         }
 
-        /* PROFILE */
         .profile {
             padding: 0 16px 20px;
         }
@@ -443,7 +381,6 @@
             background: #23a55a;
             border-radius: 50%;
             border: 3px solid #1e1f22;
-            box-shadow: 0 0 8px rgba(35,165,90,.6);
         }
 
         .profile h3 {
@@ -452,7 +389,7 @@
             font-weight: 700;
             color: #f2f3f5;
             text-align: left;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .profile .handle {
@@ -495,43 +432,41 @@
 
         .contact-links a {
             text-decoration: none;
-            padding: 11px 22px;
-            border-radius: 12px;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(255,255,255,.08);
-            transition: .25s;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #e6e4dd;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,.14);
+            transition: .2s;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: 'Outfit', sans-serif;
         }
 
         .contact-links a:hover {
-            border-color: rgba(214,140,255,.4);
-            background: rgba(214,140,255,.07);
-            box-shadow: 0 0 18px rgba(214,140,255,.2);
-            transform: translateY(-2px);
+            border-color: #e0a458;
+            color: #e0a458;
         }
 
         /* FOOTER */
         footer {
             position: fixed;
-            bottom: 20px;
+            bottom: 18px;
             left: 50%;
             transform: translateX(-50%);
-            color: #444;
-            font-size: 12px;
+            color: #4a4a45;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
             z-index: 100;
-            font-family: 'Outfit', sans-serif;
         }
     </style>
 </head>
 <body>
 
-<div class="logo">lunar.lol</div>
+<div class="logo">choco.lol</div>
 
 <nav class="navbar">
     <a href="#" class="active" onclick="showPage('home', this)">home</a>
@@ -542,13 +477,12 @@
 <!-- ══════════ HOME ══════════ -->
 <div id="home" class="page active">
     <div class="hero">
-        <div class="hero-eyebrow">available for projects</div>
-        <h1>Hello, i'm <span class="name">Yarac</span>.</h1>
+        <p class="hero-eyebrow">~/whoami</p>
+        <h1>hey, i'm <span class="name">Choco</span><span class="cursor">&nbsp;</span></h1>
         <p class="description">
-            Self-taught software developer with experience in web
-            development, automation and custom projects.
-            I enjoy building clean interfaces and learning new
-            technologies every day.
+            Self-taught dev. Most of what I know I picked up by breaking things
+            and fixing them again — web stuff, automation, random bots and tools
+            I built because I needed them and nothing else fit.
         </p>
         <div class="hero-cta">
             <a class="btn-primary" href="#" onclick="showPage('contact', document.querySelectorAll('.navbar a')[2])">contact me</a>
@@ -559,35 +493,21 @@
 
 <!-- ══════════ ABOUT ══════════ -->
 <div id="about" class="page">
-    <p class="about-heading">About <span>me</span></p>
-    <div class="about-grid">
-        <div class="about-card wide">
-            <div class="card-icon">👋</div>
-            <div class="card-title">Who I am</div>
-            <div class="card-text">
-                I’m a self-taught software developer with hands-on experience across various programming languages and tech stacks.
+    <p class="about-heading"><span class="file">about.md</span></p>
 
-Most of my knowledge comes from building personal projects, testing ideas, and learning through trial and error, which made me quick at picking up new tools and adapting to different environments.
+    <div class="bio-text">
+        <p>I'm a self-taught developer — no bootcamp, no CS degree, just a lot of late nights and projects that didn't work until they did. Most of what I know came from taking something apart to see why it broke, then rebuilding it slightly less broken.</p>
+        <p>These days I mostly build web stuff, automation scripts, bots, and small tools that solve a problem I actually had. I'd rather ship something rough that works than sit on an idea forever.</p>
+    </div>
 
-I care a lot about writing clean, reliable code and I’m always improving by building more things and learning from what works and what fails.
-            </div>
-        </div>
-        <div class="about-card">
-            <div class="card-icon">⚡</div>
-            <div class="card-title">What I do</div>
-            <div class="card-text">Web development, automation scripts, bots and custom tools built from scratch.</div>
-        </div>
-        <div class="about-card">
-            <div class="card-icon">🛠️</div>
-            <div class="card-title">Stack</div>
-            <div class="skills-row">
-              <span class="skill-tag">C++</span>
-              <span class="skill-tag">Luau</span>
-                <span class="skill-tag">HTML</span>
-                <span class="skill-tag">CSS</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Node.js</span>
+    <div style="width:100%">
+        <p class="section-label">stack.json</p>
+        <div class="terminal">
+            <div class="terminal-bar"><span></span><span></span><span></span></div>
+            <div class="terminal-body">
+                <div><span class="prompt">languages:</span> <span class="val">C++, Python, JavaScript</span></div>
+                <div><span class="prompt">also:</span> <span class="val">Luau, Node.js, HTML/CSS</span></div>
+                <div><span class="prompt">currently learning:</span> <span class="val">whatever breaks next</span></div>
             </div>
         </div>
     </div>
@@ -595,10 +515,10 @@ I care a lot about writing clean, reliable code and I’m always improving by bu
 
 <!-- ══════════ CONTACT ══════════ -->
 <div id="contact" class="page">
-    <p class="contact-heading">Contact <span>me</span></p>
+    <p class="contact-heading"><span class="file">contact.md</span></p>
 
     <div class="contact-card">
-        <a href="https://discord.com/users/1460435821348786371" target="_blank" rel="noopener" style="display:block;">
+        <a href="discord.com/users/1499816726240694404" target="_blank" rel="noopener" style="display:block;">
         <div class="banner">
             <div class="banner-discord-icon">
                 <svg width="18" height="14" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -610,11 +530,11 @@ I care a lot about writing clean, reliable code and I’m always improving by bu
 
         <div class="profile">
             <div class="avatar-wrap">
-                <img src="https://i.postimg.cc/RCwSk1Xd/d83d269f7ecbb182a1a31547d8c273c0.jpg" alt="Lunar">
+                <img src="https://i.postimg.cc/XJGSwKM8/6258ea6092d873df2759c1ad6d6a2fab.png" alt="Lunar">
                 <div class="status-dot"></div>
             </div>
-            <h3>Yarac</h3>
-            <p class="handle">@yarac.x2</p>
+            <h3>Choco</h3>
+            <p class="handle">@swii3d9</p>
             <div class="profile-divider"></div>
             <p class="about-label">about me</p>
             <p class="about-text">
@@ -632,7 +552,7 @@ I care a lot about writing clean, reliable code and I’m always improving by bu
     </div>
 </div>
 
-<footer>made with  by Yarac</footer>
+<footer>&lt;/&gt; choco.lol</footer>
 
 <script>
     function showPage(id, el) {
@@ -640,13 +560,6 @@ I care a lot about writing clean, reliable code and I’m always improving by bu
         document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         if (el) el.classList.add('active');
-
-        // re-trigger hero animations on home
-        if (id === 'home') {
-            const hero = document.querySelector('.hero');
-            hero.style.display = 'none';
-            requestAnimationFrame(() => { hero.style.display = ''; });
-        }
     }
 </script>
 
